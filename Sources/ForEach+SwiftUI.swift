@@ -28,7 +28,6 @@
 import Combine
 import SwiftUI
 
-
 // MARK: - ForEach
 
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
@@ -60,8 +59,8 @@ extension ForEach where Content: View {
     public init<O: DynamicObject>(
         _ objectSnapshots: Data,
         @ViewBuilder content: @escaping (ObjectSnapshot<O>) -> Content
-    ) where Data.Element == ObjectSnapshot<O>, ID == O.ObjectID {
-        
+	) where Data.Element == ObjectSnapshot<O>, ID == DynamicObject.ObjectID {
+
         self.init(objectSnapshots, id: \.cs_objectID, content: content)
     }
 
@@ -90,7 +89,7 @@ extension ForEach where Content: View {
     public init<O: DynamicObject>(
         objectIn listSnapshot: Data,
         @ViewBuilder content: @escaping (ObjectPublisher<O>) -> Content
-    ) where Data == ListSnapshot<O>, ID == O.ObjectID {
+    ) where Data == ListSnapshot<O>, ID == DynamicObject.ObjectID {
         
         self.init(listSnapshot, id: \.cs_objectID, content: content)
     }
@@ -119,9 +118,9 @@ extension ForEach where Content: View {
     public init<O: DynamicObject>(
         objectIn objectPublishers: Data,
         @ViewBuilder content: @escaping (ObjectPublisher<O>) -> Content
-    ) where Data.Element == ObjectPublisher<O>, ID == O.ObjectID {
+    ) where Data.Element == ObjectPublisher<O>, ID == DynamicObject.ObjectID {
         
-        self.init(objectPublishers, id: \.cs_objectID, content: content)
+		self.init(objectPublishers, id: \.cs_objectID, content: content)
     }
     
     /**
@@ -192,9 +191,9 @@ extension ForEach where Content: View {
     public init<O: DynamicObject>(
         objectIn sectionInfo: Data,
         @ViewBuilder content: @escaping (ObjectPublisher<O>) -> Content
-    ) where Data == ListSnapshot<O>.SectionInfo, ID == O.ObjectID {
+    ) where Data == ListSnapshot<O>.SectionInfo, ID == DynamicObject.ObjectID {
         
-        self.init(sectionInfo, id: \.cs_objectID, content: content)
+		self.init(sectionInfo, id: \.cs_objectID, content: content)
     }
 }
 

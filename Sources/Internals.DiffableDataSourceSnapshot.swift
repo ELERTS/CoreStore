@@ -825,10 +825,16 @@ extension Internals {
                 to newSectionIndex: Int
             ) {
                 
-                self.sections.move(
-                    fromOffsets: .init(integer: sectionIndex),
-                    toOffset: newSectionIndex
-                )
+				if #available(iOSApplicationExtension 13.0, *) {
+					self.sections.move(
+						fromOffsets: .init(integer: sectionIndex),
+						toOffset: newSectionIndex
+					)
+				} else {
+					let value = self.sections[sectionIndex]
+					self.sections.remove(at: sectionIndex)
+					self.sections.insert(value, at: newSectionIndex)
+				}
             }
 
             mutating func update<S: Sequence>(
