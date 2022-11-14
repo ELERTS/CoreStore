@@ -185,8 +185,7 @@ public struct Where<O: DynamicObject>: WhereClauseType, FetchClause, QueryClause
 
         switch value {
 
-        case nil,
-             is NSNull:
+        case is NSNull:
             self.init(NSPredicate(format: "\(keyPath) == nil"))
 
         case let value:
